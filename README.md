@@ -1,3 +1,3 @@
 # Vibbraneo NF
 
-Sistema Web para controle de emissão e controle de Notas Fiscais.
+Sistema Web para emissão e controle de Notas Fiscais.
