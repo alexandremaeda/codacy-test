@@ -1,10 +1,11 @@
 require('dotenv-safe').config();
 require('express-async-errors');
+const fs = require('fs');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const fs = require('fs');
+const handleErrors = require('./api/middleware/handleErrors');
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -21,9 +22,10 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Dyanmic Routing
  * Adds all routes from routes folder
  */
-fs.readdir('./routes', (err, files) => {
-  files.forEach((file) => {
-    app.use('/', require('./routes/' + file));
-  });
+fs.readdirSync('./routes').forEach((file) => {
+  app.use('/', require('./routes/' + file));
 });
+
+app.use(handleErrors);
+
 module.exports = app;
