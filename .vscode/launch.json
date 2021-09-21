@@ -9,8 +9,8 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "cwd": "${workspaceRoot}/",
-      "program": "${workspaceRoot}/bin/www",
+      "cwd": "${workspaceRoot}/src",
+      "program": "${workspaceRoot}/src/bin/www",
       "outputCapture": "std"
     }
   ]

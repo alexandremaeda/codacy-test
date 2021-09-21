@@ -5,18 +5,14 @@ const { BadRequest } = require('../../utils/errors');
 const AuthService = require('../services/auth');
 
 const login = async (req, res, next) => {
-  try {
-    const { login, password } = req.body;
-    const token = await AuthService.login(login, password);
+  const { login, password } = req.body;
+  const token = await AuthService.login(login, password);
 
-    if (token) {
-      return res.json({ auth: true, token: token });
-    }
-
-    throw new BadRequest('Invalid credentials');
-  } catch (err) {
-    next(err);
+  if (token) {
+    return res.json({ auth: true, token: token });
   }
+
+  throw new BadRequest('Invalid credentials');
 };
 
 const logout = async (req, res) => {
