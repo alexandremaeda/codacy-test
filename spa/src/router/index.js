@@ -22,23 +22,22 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Home',
     meta: { requiresAuth: true },
     component: () => import('layouts/DashboardLayout.vue'),
-    children: [{ path: '', component: () => import('views/Home.vue') }],
-  },
-  {
-    path: '/loucura',
-    name: 'Loucura',
-    meta: { requiresAuth: true },
-    component: () => import('layouts/DashboardLayout.vue'),
-    children: [{ path: '', component: () => import('views/Home.vue') }],
+    children: [
+      { path: '', name: 'Home', component: () => import('pages/Home.vue') },
+      {
+        path: 'notas-fiscais',
+        name: 'Notas Fiscais',
+        component: Overview,
+      },
+    ],
   },
   {
     path: '/login',
     component: () => import('layouts/Login.vue'),
     children: [
-      { path: '', name: 'Login', component: () => import('views/Login.vue') },
+      { path: '', name: 'Login', component: () => import('pages/Login.vue') },
     ],
   },
   {
@@ -95,6 +94,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+  linkActiveClass: 'nav-item active',
+  scrollBehavior: (to) => {
+    if (to.hash) {
+      return { selector: to.hash };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
 });
 
 router.beforeEach((to, from, next) => {
