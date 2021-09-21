@@ -15,6 +15,7 @@ module.exports = {
       path.resolve(__dirname, 'src/components')
     );
     config.resolve.alias.set('store', path.resolve(__dirname, 'src/store'));
+    config.resolve.alias.set('api', path.resolve(__dirname, 'src/api'));
     config.resolve.alias.set(
       'vue$',
       // If using the runtime only build

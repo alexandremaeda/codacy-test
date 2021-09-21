@@ -15,6 +15,7 @@
                     class="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
+                    v-model="userLogin"
                   />
                   <label for="floatingInput">Email address</label>
                 </div>
@@ -24,23 +25,14 @@
                     class="form-control"
                     id="floatingPassword"
                     placeholder="Password"
+                    v-model="userPassword"
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
-
-                <div class="form-check mb-3">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="rememberPasswordCheck"
-                  />
-                  <label class="form-check-label" for="rememberPasswordCheck">
-                    Lembrar senha
-                  </label>
-                </div>
                 <div class="d-grid">
-                  <b-button variant="primary" size="lg">Entrar</b-button>
+                  <b-button variant="primary" size="lg" @click="submit"
+                    >Entrar</b-button
+                  >
                 </div>
               </form>
             </div>
@@ -50,6 +42,43 @@
     </div>
   </section>
 </template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('auth');
+
+export default {
+  data() {
+    return {
+      userLogin: undefined,
+      userPassword: undefined,
+    };
+  },
+  computed: {
+    ...mapState(['token', 'status']),
+  },
+  methods: {
+    ...mapActions(['login']),
+    async submit() {
+      try {
+        await this.login({
+          login: this.userLogin,
+          password: this.userPassword,
+        });
+
+        if (this.token) this.$router.push('/');
+      } catch (err) {
+        this.$swal.fire({
+          title: 'Erro!',
+          text: 'E-mail ou senha incorretos.',
+          icon: 'error',
+          confirmButtonText: 'Fechar',
+        });
+      }
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 .bg {

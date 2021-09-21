@@ -3,10 +3,11 @@ const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const USER_REQUEST = 'USER_REQUEST';
 const AUTH_ERROR = 'AUTH_ERROR';
 const AUTH_LOGOUT = 'AUTH_LOGOUT';
+import authApi from 'api/auth';
 
 // initial state
 const state = () => ({
-  token: localStorage.getItem('user-token') || 'ok',
+  token: localStorage.getItem('user-token') || '',
   status: '',
 });
 
@@ -18,28 +19,21 @@ const getters = {
 
 // actions
 const actions = {
-  [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
-    // return new Promise((resolve, reject) => {
-    // The Promise used for router redirect in login
-    commit(AUTH_REQUEST);
-    commit(AUTH_SUCCESS, 'token');
-    //   axios({ url: 'auth', data: user, method: 'POST' })
-    //     .then((resp) => {
-    //       const token = resp.data.token;
-    //       localStorage.setItem('user-token', token); // store the token in localstorage
-    //       commit(AUTH_SUCCESS, token);
-    //       // you have your token, now log in your user :)
-    //       dispatch(USER_REQUEST);
-    //       resolve(resp);
-    //     })
-    //     .catch((err) => {
-    //       commit(AUTH_ERROR, err);
-    //       localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
-    //       reject(err);
-    //     });
-    // });
+  login: async ({ commit, dispatch }, data) => {
+    const { token } = await authApi.login(data).then((res) => res.data);
+
+    if (token) {
+      localStorage.setItem('user-token', token); // store the token in localstorage
+      commit(AUTH_SUCCESS, token);
+      // dispatch(USER_REQUEST);
+    } else {
+      commit(AUTH_ERROR, 'err');
+      localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
+    }
+
+    return token;
   },
-  [AUTH_LOGOUT]: ({ commit, dispatch }) => {
+  logout: ({ commit, dispatch }) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT);
       localStorage.removeItem('user-token'); // clear your user's token from localstorage

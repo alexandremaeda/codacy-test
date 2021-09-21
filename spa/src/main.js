@@ -7,12 +7,15 @@ import store from './store';
 import LightBootstrap from './light-bootstrap-main';
 import { BootstrapVue } from 'bootstrap-vue';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+
 Vue.config.productionTip = false;
 
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(LightBootstrap);
 Vue.use(BootstrapVue);
+Vue.use(VueSweetalert2);
 
 new Vue({
   router,

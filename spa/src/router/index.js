@@ -28,10 +28,18 @@ const routes = [
     children: [{ path: '', component: () => import('views/Home.vue') }],
   },
   {
+    path: '/loucura',
+    name: 'Loucura',
+    meta: { requiresAuth: true },
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [{ path: '', component: () => import('views/Home.vue') }],
+  },
+  {
     path: '/login',
-    name: 'Login',
     component: () => import('layouts/Login.vue'),
-    children: [{ path: '', component: () => import('views/Login.vue') }],
+    children: [
+      { path: '', name: 'Login', component: () => import('views/Login.vue') },
+    ],
   },
   {
     path: '/admin',
@@ -95,7 +103,14 @@ router.beforeEach((to, from, next) => {
       next();
       return;
     }
-    next('/login');
+
+    let query = {};
+    if (to.fullPath !== '/') query.redirect = to.fullPath;
+
+    next({
+      name: 'Login',
+      query,
+    });
   } else {
     next();
   }
