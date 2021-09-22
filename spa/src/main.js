@@ -22,7 +22,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(LightBootstrap);
 Vue.use(BootstrapVue);
-Vue.use(VueSweetalert2);
+Vue.use(VueSweetalert2, {
+  confirmButtonColor: '#007bff',
+});
 
 // vee-validate config
 // localize('pt_BR', pt_BR);
