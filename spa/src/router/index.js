@@ -29,8 +29,24 @@ const routes = [
       {
         path: 'notas-fiscais',
         name: 'Notas Fiscais',
-        component: Overview,
+        component: () => import('pages/NotasFiscais/Home.vue'),
       },
+      {
+        path: 'notas-fiscais/adicionar',
+        name: 'Adicionar Nota Fiscal',
+        component: () => import('pages/NotasFiscais/Add.vue'),
+      },
+      {
+        path: 'despesas',
+        name: 'Despesas',
+        component: () => import('pages/Despesas/Home.vue'),
+      },
+      {
+        path: 'preferencias',
+        name: 'Preferências',
+        component: () => import('pages/Preferencias/Home.vue'),
+      },
+      { path: '*', component: NotFound },
     ],
   },
   {
@@ -87,7 +103,6 @@ const routes = [
       },
     ],
   },
-  { path: '*', component: NotFound },
 ];
 
 const router = new VueRouter({
