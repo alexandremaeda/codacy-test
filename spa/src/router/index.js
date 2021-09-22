@@ -120,6 +120,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  // update document title
+  const title = to.name ? `Vibbraneo NF - ${to.name}` : 'Vibbraneo NF';
+  document.title = title;
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (store.getters['auth/isAuthenticated']) {
       next();
