@@ -6,6 +6,13 @@ function resolveSrc(_path) {
 }
 
 module.exports = {
+  pages: {
+    index: {
+      // entry for the page
+      entry: 'src/main.js',
+      title: 'Vibbraneo NF',
+    },
+  },
   chainWebpack: (config) => {
     config.resolve.alias.set('layouts', path.resolve(__dirname, 'src/layouts'));
     config.resolve.alias.set('views', path.resolve(__dirname, 'src/views'));
