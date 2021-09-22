@@ -27,15 +27,15 @@ export default {
       type: [String, Object],
       default: () => {
         return {
-          name: '',
-          path: '',
-          icon: '',
+          name: "",
+          path: "",
+          icon: "",
         };
       },
     },
     tag: {
       type: String,
-      default: 'router-link',
+      default: "router-link",
     },
   },
   methods: {

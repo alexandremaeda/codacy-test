@@ -17,9 +17,9 @@
 </template>
 <script>
 export default {
-  name: 'base-checkbox',
+  name: "base-checkbox",
   model: {
-    prop: 'checked',
+    prop: "checked",
   },
   props: {
     checked: [Array, Boolean],
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      cbId: '',
+      cbId: "",
     };
   },
   computed: {
@@ -37,7 +37,7 @@ export default {
         return this.checked;
       },
       set(check) {
-        this.$emit('input', check);
+        this.$emit("input", check);
       },
     },
     inlineClass() {

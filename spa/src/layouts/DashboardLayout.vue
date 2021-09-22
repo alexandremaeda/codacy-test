@@ -30,13 +30,13 @@
 </template>
 <style lang="scss"></style>
 <script>
-import TopNavbar from './TopNavbar.vue';
-import ContentFooter from './ContentFooter.vue';
-import DashboardContent from './Content.vue';
-import MobileMenu from './MobileMenu.vue';
+import TopNavbar from "./TopNavbar.vue";
+import ContentFooter from "./ContentFooter.vue";
+import DashboardContent from "./Content.vue";
+import MobileMenu from "./MobileMenu.vue";
 
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('auth');
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("auth");
 
 export default {
   components: {
@@ -46,7 +46,7 @@ export default {
     MobileMenu,
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(["logout"]),
     toggleSidebar() {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false);
@@ -55,35 +55,35 @@ export default {
     logoutClick() {
       this.$swal
         .fire({
-          title: 'Você tem certeza?',
-          icon: 'warning',
+          title: "Você tem certeza?",
+          icon: "warning",
           showCancelButton: true,
           // confirmButtonColor: '#3085d6',
           // cancelButtonColor: '#d33',
-          confirmButtonText: 'Sim',
-          cancelButtonText: 'Não',
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
         })
         .then((result) => {
           if (result.isConfirmed) {
             const Toast = this.$swal.mixin({
               toast: true,
-              position: 'top-end',
+              position: "top-end",
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,
               didOpen: (toast) => {
-                toast.addEventListener('mouseenter', this.$swal.stopTimer);
-                toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+                toast.addEventListener("mouseenter", this.$swal.stopTimer);
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer);
               },
             });
 
             Toast.fire({
-              icon: 'success',
-              title: 'Você se desconectou',
+              icon: "success",
+              title: "Você se desconectou",
             });
 
             this.logout();
-            this.$router.push({ name: 'Login' });
+            this.$router.push({ name: "Login" });
           }
         });
     },

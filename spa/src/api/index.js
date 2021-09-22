@@ -1,12 +1,12 @@
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
   crossdomain: true,
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
@@ -26,7 +26,7 @@ instance.interceptors.response.use(
   function (err) {
     // check for errorHandle config
     if (
-      Object.prototype.hasOwnProperty.call(err.config, 'errorHandle') &&
+      Object.prototype.hasOwnProperty.call(err.config, "errorHandle") &&
       err.config.errorHandle === false
     ) {
       return Promise.reject(err);
@@ -34,10 +34,10 @@ instance.interceptors.response.use(
 
     if (err.response) {
       Swal.fire({
-        title: 'Erro!',
+        title: "Erro!",
         text: err.message,
-        icon: 'error',
-        confirmButtonText: 'Fechar',
+        icon: "error",
+        confirmButtonText: "Fechar",
       });
     }
   }

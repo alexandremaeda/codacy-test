@@ -15,14 +15,14 @@
 // import Card from './Card.vue'
 
 export default {
-  name: 'chart-card',
+  name: "chart-card",
   components: {
     // Card
   },
   props: {
     chartType: {
       type: String,
-      default: 'Line', // Line | Pie | Bar
+      default: "Line", // Line | Pie | Bar
     },
     chartOptions: {
       type: Object,
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      chartId: 'no-id',
+      chartId: "no-id",
       $Chartist: null,
       chart: null,
     };
@@ -60,11 +60,11 @@ export default {
         this.chartOptions,
         this.responsiveOptions
       );
-      this.$emit('initialized', this.chart);
-      if (this.chartType === 'Line') {
+      this.$emit("initialized", this.chart);
+      if (this.chartType === "Line") {
         this.animateLineChart();
       }
-      if (this.chartType === 'Bar') {
+      if (this.chartType === "Bar") {
         this.animateBarChart();
       }
     },
@@ -83,8 +83,8 @@ export default {
       let seq = 0;
       let durations = 500;
       let delays = 80;
-      this.chart.on('draw', (data) => {
-        if (data.type === 'line' || data.type === 'area') {
+      this.chart.on("draw", (data) => {
+        if (data.type === "line" || data.type === "area") {
           data.element.animate({
             d: {
               begin: 600,
@@ -98,7 +98,7 @@ export default {
               easing: this.$Chartist.Svg.Easing.easeOutQuint,
             },
           });
-        } else if (data.type === 'point') {
+        } else if (data.type === "point") {
           seq++;
           data.element.animate({
             opacity: {
@@ -106,7 +106,7 @@ export default {
               dur: durations,
               from: 0,
               to: 1,
-              easing: 'ease',
+              easing: "ease",
             },
           });
         }
@@ -117,8 +117,8 @@ export default {
       let seq = 0;
       let durations = 500;
       let delays = 80;
-      this.chart.on('draw', (data) => {
-        if (data.type === 'bar') {
+      this.chart.on("draw", (data) => {
+        if (data.type === "bar") {
           seq++;
           data.element.animate({
             opacity: {
@@ -126,7 +126,7 @@ export default {
               dur: durations,
               from: 0,
               to: 1,
-              easing: 'ease',
+              easing: "ease",
             },
           });
         }
@@ -135,7 +135,7 @@ export default {
   },
   async mounted() {
     this.updateChartId();
-    const Chartist = await import('chartist');
+    const Chartist = await import("chartist");
     this.$Chartist = Chartist.default || Chartist;
     this.initChart();
   },

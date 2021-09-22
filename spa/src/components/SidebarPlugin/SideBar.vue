@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import SidebarLink from './SidebarLink.vue';
+import SidebarLink from "./SidebarLink.vue";
 
 export default {
   components: {
@@ -51,39 +51,39 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Vibbraneo NF',
+      default: "Vibbraneo NF",
     },
     backgroundColor: {
       type: String,
-      default: 'blue',
+      default: "blue",
       validator: (value) => {
         let acceptedValues = [
-          '',
-          'blue',
-          'azure',
-          'green',
-          'orange',
-          'red',
-          'purple',
-          'black',
+          "",
+          "blue",
+          "azure",
+          "green",
+          "orange",
+          "red",
+          "purple",
+          "black",
         ];
         return acceptedValues.indexOf(value) !== -1;
       },
     },
     backgroundImage: {
       type: String,
-      default: 'img/sidebar-5.jpg',
+      default: "img/sidebar-5.jpg",
     },
     activeColor: {
       type: String,
-      default: 'success',
+      default: "success",
       validator: (value) => {
         let acceptedValues = [
-          'primary',
-          'info',
-          'success',
-          'warning',
-          'danger',
+          "primary",
+          "info",
+          "success",
+          "warning",
+          "danger",
         ];
         return acceptedValues.indexOf(value) !== -1;
       },

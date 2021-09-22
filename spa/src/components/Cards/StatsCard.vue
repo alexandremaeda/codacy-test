@@ -18,15 +18,12 @@
   </card>
 </template>
 <script>
-  import Card from './Card.vue'
-  export default {
-    name: 'stats-card',
-    components: {
-      Card
-    }
-  }
-
+import Card from "./Card.vue";
+export default {
+  name: "stats-card",
+  components: {
+    Card,
+  },
+};
 </script>
-<style>
-
-</style>
+<style></style>

@@ -18,14 +18,14 @@
 </template>
 <script>
 export default {
-  name: 'l-table',
+  name: "l-table",
   props: {
     columns: Array,
     data: Array,
   },
   methods: {
     hasValue(item, column) {
-      return item[column.toLowerCase()] !== 'undefined';
+      return item[column.toLowerCase()] !== "undefined";
     },
     itemValue(item, column) {
       return item[column.toLowerCase()];

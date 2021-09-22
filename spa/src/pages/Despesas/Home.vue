@@ -25,11 +25,11 @@ export default {
     return {
       breadCrumbItems: [
         {
-          text: 'Dashboard',
-          to: { name: 'Home' },
+          text: "Dashboard",
+          to: { name: "Home" },
         },
         {
-          text: 'Despesas',
+          text: "Despesas",
           active: true,
         },
       ],

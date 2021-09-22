@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('auth');
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("auth");
 
 export default {
   data() {
@@ -55,10 +55,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(['token', 'status']),
+    ...mapState(["token", "status"]),
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(["login"]),
     async submit() {
       try {
         await this.login({
@@ -69,31 +69,31 @@ export default {
         if (this.token) {
           const Toast = this.$swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener('mouseenter', this.$swal.stopTimer);
-              toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+              toast.addEventListener("mouseenter", this.$swal.stopTimer);
+              toast.addEventListener("mouseleave", this.$swal.resumeTimer);
             },
           });
 
           Toast.fire({
-            icon: 'success',
-            title: 'Você conectou',
+            icon: "success",
+            title: "Você conectou",
           });
 
           if (this.$route.query && this.$route.query.redirect)
             this.$router.push(this.$route.query.redirect);
-          else this.$router.push('/');
+          else this.$router.push("/");
         }
       } catch (err) {
         this.$swal.fire({
-          title: 'Erro!',
-          text: 'E-mail ou senha incorretos.',
-          icon: 'error',
-          confirmButtonText: 'Fechar',
+          title: "Erro!",
+          text: "E-mail ou senha incorretos.",
+          icon: "error",
+          confirmButtonText: "Fechar",
         });
       }
     },

@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('notasFiscais');
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("notasFiscais");
 
 export default {
   computed: {
@@ -53,7 +53,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['getNotasFiscais', 'clearNotasFiscais']),
+    ...mapActions(["getNotasFiscais", "clearNotasFiscais"]),
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
@@ -70,7 +70,7 @@ export default {
       this.$sidebar.displaySidebar(false);
     },
     logout() {
-      this.$emit('logout');
+      this.$emit("logout");
     },
   },
 };

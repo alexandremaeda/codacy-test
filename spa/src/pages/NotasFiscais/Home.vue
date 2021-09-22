@@ -39,54 +39,54 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState } = createNamespacedHelpers('notasFiscais');
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("notasFiscais");
 
 export default {
   data() {
     return {
       breadCrumbItems: [
         {
-          text: 'Dashboard',
-          to: { name: 'Home' },
+          text: "Dashboard",
+          to: { name: "Home" },
         },
         {
-          text: 'Notas Fiscais',
+          text: "Notas Fiscais",
           active: true,
         },
       ],
       fields: [
         {
-          key: 'numero',
-          label: 'Número',
+          key: "numero",
+          label: "Número",
         },
         {
-          key: 'valor',
-          label: 'Valor',
+          key: "valor",
+          label: "Valor",
           formatter(value) {
-            return parseFloat(value || 0).toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL',
+            return parseFloat(value || 0).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
             });
           },
         },
         {
-          key: 'mes',
-          label: 'Mês',
+          key: "mes",
+          label: "Mês",
         },
         {
-          key: 'dataRecebimento',
-          label: 'Data de Recebimento',
+          key: "dataRecebimento",
+          label: "Data de Recebimento",
         },
         {
-          key: 'descricaoServico',
-          label: 'Descrição do Serviço Prestado',
+          key: "descricaoServico",
+          label: "Descrição do Serviço Prestado",
         },
       ],
     };
   },
   computed: {
-    ...mapState(['notasFiscais']),
+    ...mapState(["notasFiscais"]),
   },
   methods: {
     longTextChecker(text) {

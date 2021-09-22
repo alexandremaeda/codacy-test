@@ -59,44 +59,44 @@
   </div>
 </template>
 <script>
-import LTable from 'components/Table.vue';
-import Card from 'components/Cards/Card.vue';
-const tableColumns = ['Id', 'Name', 'Salary', 'Country', 'City'];
+import LTable from "components/Table.vue";
+import Card from "components/Cards/Card.vue";
+const tableColumns = ["Id", "Name", "Salary", "Country", "City"];
 const tableData = [
   {
     id: 1,
-    name: 'Dakota Rice',
-    salary: '$36.738',
-    country: 'Niger',
-    city: 'Oud-Turnhout',
+    name: "Dakota Rice",
+    salary: "$36.738",
+    country: "Niger",
+    city: "Oud-Turnhout",
   },
   {
     id: 2,
-    name: 'Minerva Hooper',
-    salary: '$23,789',
-    country: 'Curaçao',
-    city: 'Sinaai-Waas',
+    name: "Minerva Hooper",
+    salary: "$23,789",
+    country: "Curaçao",
+    city: "Sinaai-Waas",
   },
   {
     id: 3,
-    name: 'Sage Rodriguez',
-    salary: '$56,142',
-    country: 'Netherlands',
-    city: 'Baileux',
+    name: "Sage Rodriguez",
+    salary: "$56,142",
+    country: "Netherlands",
+    city: "Baileux",
   },
   {
     id: 4,
-    name: 'Philip Chaney',
-    salary: '$38,735',
-    country: 'Korea, South',
-    city: 'Overland Park',
+    name: "Philip Chaney",
+    salary: "$38,735",
+    country: "Korea, South",
+    city: "Overland Park",
   },
   {
     id: 5,
-    name: 'Doris Greene',
-    salary: '$63,542',
-    country: 'Malawi',
-    city: 'Feldkirchen in Kärnten',
+    name: "Doris Greene",
+    salary: "$63,542",
+    country: "Malawi",
+    city: "Feldkirchen in Kärnten",
   },
 ];
 export default {

@@ -17,13 +17,13 @@
   </ul>
 </template>
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('notasFiscais');
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("notasFiscais");
 
 export default {
-  name: 'mobile-menu',
+  name: "mobile-menu",
   methods: {
-    ...mapActions(['getNotasFiscais', 'clearNotasFiscais']),
+    ...mapActions(["getNotasFiscais", "clearNotasFiscais"]),
   },
 };
 </script>

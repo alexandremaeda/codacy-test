@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import StatsCard from 'src/components/Cards/StatsCard.vue';
-import ChartCard from 'src/components/Cards/ChartCard.vue';
+import StatsCard from "src/components/Cards/StatsCard.vue";
+import ChartCard from "src/components/Cards/ChartCard.vue";
 
 export default {
   components: {
@@ -107,7 +107,7 @@ export default {
     return {
       breadCrumbItems: [
         {
-          text: 'Dashboard',
+          text: "Dashboard",
           active: true,
         },
       ],
@@ -117,10 +117,10 @@ export default {
   },
   computed: {
     notasFiscaisLenght() {
-      return this.$store.getters['notasFiscais/length'];
+      return this.$store.getters["notasFiscais/length"];
     },
     faturamentoNotasFiscais() {
-      return this.$store.getters['notasFiscais/getFaturamento'](2021);
+      return this.$store.getters["notasFiscais/getFaturamento"](2021);
     },
     dataNotasFiscais() {
       const faturamentoMei = 81000;
@@ -154,7 +154,7 @@ export default {
       }
     },
     notasFiscaisByMonth() {
-      const notasFiscais = this.$store.getters['notasFiscais/getNotasFiscais'];
+      const notasFiscais = this.$store.getters["notasFiscais/getNotasFiscais"];
       let lengthByMonth = [];
 
       for (let i = 1; i <= 12; i++) {
@@ -168,18 +168,18 @@ export default {
       return {
         data: {
           labels: [
-            'Jan',
-            'Fev',
-            'Mar',
-            'Abr',
-            'Mai',
-            'Jun',
-            'Jul',
-            'Ago',
-            'Set',
-            'Out',
-            'Nov',
-            'Dez',
+            "Jan",
+            "Fev",
+            "Mar",
+            "Abr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Set",
+            "Out",
+            "Nov",
+            "Dez",
           ],
           series: [this.notasFiscaisByMonth],
         },
@@ -190,11 +190,11 @@ export default {
           axisX: {
             showGrid: false,
           },
-          height: '245px',
+          height: "245px",
         },
         responsiveOptions: [
           [
-            'screen and (max-width: 640px)',
+            "screen and (max-width: 640px)",
             {
               seriesBarDistance: 1,
               axisX: {
@@ -210,9 +210,9 @@ export default {
   },
   methods: {
     moneyFormat(value) {
-      return parseFloat(value || 0).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
+      return parseFloat(value || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
       });
     },
   },

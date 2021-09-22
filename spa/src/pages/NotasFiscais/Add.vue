@@ -153,10 +153,10 @@
 </template>
 
 <script>
-import { Money } from 'v-money';
+import { Money } from "v-money";
 
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('notasFiscais');
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("notasFiscais");
 
 export default {
   components: { Money },
@@ -164,46 +164,46 @@ export default {
     return {
       breadCrumbItems: [
         {
-          text: 'Dashboard',
-          to: { name: 'Home' },
+          text: "Dashboard",
+          to: { name: "Home" },
         },
         {
-          text: 'Notas Fiscais',
-          to: { name: 'Notas Fiscais' },
+          text: "Notas Fiscais",
+          to: { name: "Notas Fiscais" },
         },
         {
-          text: 'Adicionar Nota Fiscal',
+          text: "Adicionar Nota Fiscal",
           active: true,
         },
       ],
       moneyMask: {
-        decimal: ',',
-        thousands: '.',
-        prefix: 'R$ ',
+        decimal: ",",
+        thousands: ".",
+        prefix: "R$ ",
         precision: 2,
         masked: this.masked || false,
       },
       notaFiscal: {},
       meses: [
-        { value: 1, text: '01 - Janeiro' },
-        { value: 2, text: '02 - Fevereiro' },
-        { value: 3, text: '03 - Março' },
-        { value: 4, text: '04 - Abril' },
-        { value: 5, text: '05 - Maio' },
-        { value: 6, text: '06 - Junho' },
-        { value: 7, text: '07 - Julho' },
-        { value: 8, text: '08 - Agosto' },
-        { value: 9, text: '09 - Setembro' },
-        { value: 10, text: '10 - Outubro' },
-        { value: 11, text: '11 - Novembro' },
-        { value: 12, text: '12 - Dezembro' },
+        { value: 1, text: "01 - Janeiro" },
+        { value: 2, text: "02 - Fevereiro" },
+        { value: 3, text: "03 - Março" },
+        { value: 4, text: "04 - Abril" },
+        { value: 5, text: "05 - Maio" },
+        { value: 6, text: "06 - Junho" },
+        { value: 7, text: "07 - Julho" },
+        { value: 8, text: "08 - Agosto" },
+        { value: 9, text: "09 - Setembro" },
+        { value: 10, text: "10 - Outubro" },
+        { value: 11, text: "11 - Novembro" },
+        { value: 12, text: "12 - Dezembro" },
       ],
       added: false,
-      addedMessage: '',
+      addedMessage: "",
     };
   },
   methods: {
-    ...mapActions(['addNotaFiscal']),
+    ...mapActions(["addNotaFiscal"]),
     reset() {
       this.notaFiscal = {};
 
@@ -215,19 +215,19 @@ export default {
       this.addNotaFiscal(this.notaFiscal);
       const Toast = this.$swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
         timer: 5000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', this.$swal.stopTimer);
-          toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
         },
       });
 
       Toast.fire({
-        icon: 'success',
-        title: 'Notas Fiscal adicionada com sucesso',
+        icon: "success",
+        title: "Notas Fiscal adicionada com sucesso",
       });
 
       this.added = true;

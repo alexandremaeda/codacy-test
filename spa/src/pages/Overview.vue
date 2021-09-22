@@ -170,9 +170,9 @@
   </div>
 </template>
 <script>
-import ChartCard from 'components/Cards/ChartCard.vue';
-import StatsCard from 'components/Cards/StatsCard.vue';
-import LTable from 'components/Table.vue';
+import ChartCard from "components/Cards/ChartCard.vue";
+import StatsCard from "components/Cards/StatsCard.vue";
+import LTable from "components/Table.vue";
 
 export default {
   components: {
@@ -182,25 +182,25 @@ export default {
   },
   data() {
     return {
-      editTooltip: 'Edit Task',
-      deleteTooltip: 'Remove',
+      editTooltip: "Edit Task",
+      deleteTooltip: "Remove",
       pieChart: {
         data: {
-          labels: ['40%', '20%', '40%'],
+          labels: ["40%", "20%", "40%"],
           series: [40, 20, 40],
         },
       },
       lineChart: {
         data: {
           labels: [
-            '9:00AM',
-            '12:00AM',
-            '3:00PM',
-            '6:00PM',
-            '9:00PM',
-            '12:00PM',
-            '3:00AM',
-            '6:00AM',
+            "9:00AM",
+            "12:00AM",
+            "3:00PM",
+            "6:00PM",
+            "9:00PM",
+            "12:00PM",
+            "3:00AM",
+            "6:00AM",
           ],
           series: [
             [287, 385, 490, 492, 554, 586, 698, 695],
@@ -212,7 +212,7 @@ export default {
           low: 0,
           high: 800,
           showArea: false,
-          height: '245px',
+          height: "245px",
           axisX: {
             showGrid: false,
           },
@@ -226,7 +226,7 @@ export default {
         },
         responsiveOptions: [
           [
-            'screen and (max-width: 640px)',
+            "screen and (max-width: 640px)",
             {
               axisX: {
                 labelInterpolationFnc(value) {
@@ -240,18 +240,18 @@ export default {
       barChart: {
         data: {
           labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'Mai',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ],
           series: [
             [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
@@ -263,11 +263,11 @@ export default {
           axisX: {
             showGrid: false,
           },
-          height: '245px',
+          height: "245px",
         },
         responsiveOptions: [
           [
-            'screen and (max-width: 640px)',
+            "screen and (max-width: 640px)",
             {
               seriesBarDistance: 5,
               axisX: {
@@ -288,20 +288,20 @@ export default {
           },
           {
             title:
-              'Lines From Great Russian Literature? Or E-mails From My Boss?',
+              "Lines From Great Russian Literature? Or E-mails From My Boss?",
             checked: true,
           },
           {
             title:
-              'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit',
+              "Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit",
             checked: true,
           },
           {
-            title: 'Create 4 Invisible User Experiences you Never Knew About',
+            title: "Create 4 Invisible User Experiences you Never Knew About",
             checked: false,
           },
           { title: 'Read "Following makes Medium better"', checked: false },
-          { title: 'Unfollow 5 enemies from twitter', checked: false },
+          { title: "Unfollow 5 enemies from twitter", checked: false },
         ],
       },
     };
