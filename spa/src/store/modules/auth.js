@@ -1,15 +1,14 @@
 const AUTH_REQUEST = 'AUTH_REQUEST';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
-const USER_REQUEST = 'USER_REQUEST';
 const AUTH_ERROR = 'AUTH_ERROR';
 const AUTH_LOGOUT = 'AUTH_LOGOUT';
 import authApi from 'api/auth';
 
 // initial state
-const state = () => ({
+const state = {
   token: localStorage.getItem('user-token') || '',
   status: '',
-});
+};
 
 // getters
 const getters = {
@@ -25,7 +24,6 @@ const actions = {
     if (token) {
       localStorage.setItem('user-token', token); // store the token in localstorage
       commit(AUTH_SUCCESS, token);
-      // dispatch(USER_REQUEST);
     } else {
       commit(AUTH_ERROR, 'err');
       localStorage.removeItem('user-token'); // if the request fails, remove any possible user token if possible
@@ -34,11 +32,8 @@ const actions = {
     return token;
   },
   logout: ({ commit, dispatch }) => {
-    return new Promise((resolve, reject) => {
-      commit(AUTH_LOGOUT);
-      localStorage.removeItem('user-token'); // clear your user's token from localstorage
-      resolve();
-    });
+    commit(AUTH_LOGOUT);
+    localStorage.removeItem('user-token'); // clear your user's token from localstorage
   },
 };
 
@@ -53,6 +48,10 @@ const mutations = {
   },
   [AUTH_ERROR]: (state) => {
     state.status = 'error';
+  },
+  [AUTH_LOGOUT]: () => {
+    state.status = '';
+    state.token = '';
   },
 };
 
