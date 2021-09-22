@@ -66,7 +66,25 @@ export default {
           password: this.userPassword,
         });
 
-        if (this.token) this.$router.push('/');
+        if (this.token) {
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', this.$swal.stopTimer);
+              toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Você conectou',
+          });
+          this.$router.push('/');
+        }
       } catch (err) {
         this.$swal.fire({
           title: 'Erro!',
