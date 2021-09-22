@@ -8,6 +8,11 @@
           </li> -->
         </ul>
       </nav>
+      <div class="copyright text-center">
+        &copy; codificado com
+        <i class="nc-icon nc-favourite-28"></i> Por
+        <a href="https://www.vibbra.com.br/" target="_blank">Vibbra</a>.
+      </div>
     </div>
   </footer>
 </template>
