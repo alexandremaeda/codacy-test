@@ -1,77 +1,92 @@
 <template>
   <div class="wrapper">
     <side-bar>
-      <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/admin/overview">
+      <mobile-menu slot="content" @logout="logout"></mobile-menu>
+      <sidebar-link :to="{ name: 'Home' }">
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/admin/user">
-        <i class="nc-icon nc-circle-09"></i>
-        <p>User Profile</p>
+      <sidebar-link :to="{ name: 'Notas Fiscais' }">
+        <i class="nc-icon nc-notes"></i>
+        <p>Notas Fiscais</p>
       </sidebar-link>
       <sidebar-link to="/admin/table-list">
         <i class="nc-icon nc-notes"></i>
-        <p>Table list</p>
+        <p>Despesas</p>
       </sidebar-link>
-      <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-paper-2"></i>
-        <p>Typography</p>
+      <sidebar-link to="/admin/user">
+        <i class="nc-icon nc-preferences-circle-rotate"></i>
+        <p>Preferências</p>
       </sidebar-link>
-      <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-atom"></i>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/maps">
-        <i class="nc-icon nc-pin-3"></i>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/notifications">
-        <i class="nc-icon nc-bell-55"></i>
-        <p>Notifications</p>
-      </sidebar-link>
-
-      <template slot="bottom-links">
-        <sidebar-link class="active"
-                      to="/admin/upgrade">
-          <i class="nc-icon nc-alien-33"></i>
-          <p>Upgrade to PRO</p>
-        </sidebar-link>
-      </template>
     </side-bar>
     <div class="main-panel">
-      <top-navbar></top-navbar>
+      <top-navbar @logout="logoutClick"></top-navbar>
 
-      <dashboard-content @click="toggleSidebar">
-
-      </dashboard-content>
+      <dashboard-content @click="toggleSidebar"> </dashboard-content>
 
       <content-footer></content-footer>
     </div>
   </div>
 </template>
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
 <script>
-  import TopNavbar from './TopNavbar.vue'
-  import ContentFooter from './ContentFooter.vue'
-  import DashboardContent from './Content.vue'
-  import MobileMenu from './MobileMenu.vue'
-  export default {
-    components: {
-      TopNavbar,
-      ContentFooter,
-      DashboardContent,
-      MobileMenu
-    },
-    methods: {
-      toggleSidebar () {
-        if (this.$sidebar.showSidebar) {
-          this.$sidebar.displaySidebar(false)
-        }
-      }
-    }
-  }
+import TopNavbar from './TopNavbar.vue';
+import ContentFooter from './ContentFooter.vue';
+import DashboardContent from './Content.vue';
+import MobileMenu from './MobileMenu.vue';
 
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('auth');
+
+export default {
+  components: {
+    TopNavbar,
+    ContentFooter,
+    DashboardContent,
+    MobileMenu,
+  },
+  methods: {
+    ...mapActions(['logout']),
+    toggleSidebar() {
+      if (this.$sidebar.showSidebar) {
+        this.$sidebar.displaySidebar(false);
+      }
+    },
+    logoutClick() {
+      this.$swal
+        .fire({
+          title: 'Você tem certeza?',
+          icon: 'warning',
+          showCancelButton: true,
+          // confirmButtonColor: '#3085d6',
+          // cancelButtonColor: '#d33',
+          confirmButtonText: 'Sim',
+          cancelButtonText: 'Não',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', this.$swal.stopTimer);
+                toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+              },
+            });
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Você se desconectou',
+            });
+
+            this.logout();
+            this.$router.push('/login');
+          }
+        });
+    },
+  },
+};
 </script>

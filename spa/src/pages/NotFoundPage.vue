@@ -4,20 +4,27 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#navigation-example-2"
+          >
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <router-link :to="{path:'/'}" class="navbar-brand">Site title</router-link>
+          <router-link :to="{ path: '/' }" class="navbar-brand"
+            >Site title</router-link
+          >
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navigation-example-2">
           <ul class="nav navbar-nav navbar-right">
             <li>
-              <router-link :to="{path:'/'}">Home</router-link>
+              <router-link :to="{ path: '/' }">Home</router-link>
             </li>
           </ul>
         </div>
@@ -31,7 +38,9 @@
           <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center">
               <h2 class="title text-danger">404 Not Found</h2>
-              <h2 class="title">Oops! It seems that this page does not exist.</h2>
+              <h2 class="title">
+                Oops! It seems that this page does not exist.
+              </h2>
             </div>
           </div>
         </div>
@@ -42,25 +51,18 @@
         <nav class="pull-left">
           <ul>
             <li>
-              <router-link :to="{path:'/'}">Home</router-link>
+              <router-link :to="{ path: '/' }">Home</router-link>
             </li>
             <li>
-              <router-link :to="{path:'/register'}">Register</router-link>
+              <router-link :to="{ path: '/register' }">Register</router-link>
             </li>
           </ul>
         </nav>
-        <div class="copyright text-center">
-          &copy; Coded with
-          <i class="fa fa-heart heart"></i> by
-          <a href="https://binarcode.com" target="_blank">BinarCode</a>.
-          Designed by <a href="https://www.creative-tim.com/?ref=pdf-vuejs" target="_blank">Creative Tim</a>.
-        </div>
       </div>
     </footer>
   </div>
 </template>
 
 <script>
-  export default {}
-
+export default {};
 </script>
