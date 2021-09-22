@@ -10,11 +10,11 @@
         <i class="nc-icon nc-notes"></i>
         <p>Notas Fiscais</p>
       </sidebar-link>
-      <sidebar-link to="/admin/table-list">
-        <i class="nc-icon nc-notes"></i>
+      <sidebar-link :to="{ name: 'Despesas' }">
+        <i class="nc-icon nc-money-coins"></i>
         <p>Despesas</p>
       </sidebar-link>
-      <sidebar-link to="/admin/user">
+      <sidebar-link :to="{ name: 'Preferências' }">
         <i class="nc-icon nc-preferences-circle-rotate"></i>
         <p>Preferências</p>
       </sidebar-link>
