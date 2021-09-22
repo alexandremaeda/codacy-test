@@ -83,7 +83,10 @@ export default {
             icon: 'success',
             title: 'Você conectou',
           });
-          this.$router.push('/');
+
+          if (this.$route.query && this.$route.query.redirect)
+            this.$router.push(this.$route.query.redirect);
+          else this.$router.push('/');
         }
       } catch (err) {
         this.$swal.fire({
