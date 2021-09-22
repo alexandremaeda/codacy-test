@@ -9,6 +9,13 @@ import { BootstrapVue } from 'bootstrap-vue';
 
 import VueSweetalert2 from 'vue-sweetalert2';
 
+import {
+  ValidationObserver,
+  ValidationProvider,
+  Validator,
+} from 'vee-validate';
+import pt_BR from 'vee-validate/dist/locale/pt_BR.js';
+
 Vue.config.productionTip = false;
 
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -16,6 +23,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(LightBootstrap);
 Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
+
+// vee-validate config
+// localize('pt_BR', pt_BR);
+Validator.localize('pt_br', pt_BR);
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
 
 new Vue({
   router,
