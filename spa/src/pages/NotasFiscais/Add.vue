@@ -6,10 +6,13 @@
           <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
           <card>
             <h2 slot="header" class="card-title mb-3">Adicionar Nota Fiscal</h2>
+            <b-alert v-model="added" variant="success" dismissible>
+              {{ addedMessage }}
+            </b-alert>
             <validation-observer ref="observer" v-slot="{ invalid, validate }">
               <b-form
                 @submit.prevent="validate().then(submit)"
-                @reset.prevent="onReset"
+                @reset.prevent="reset"
               >
                 <b-row>
                   <b-col cols="12" lg="3">
@@ -152,6 +155,9 @@
 <script>
 import { Money } from 'v-money';
 
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('notasFiscais');
+
 export default {
   components: { Money },
   data() {
@@ -192,13 +198,13 @@ export default {
         { value: 11, text: '11 - Novembro' },
         { value: 12, text: '12 - Dezembro' },
       ],
+      added: false,
+      addedMessage: '',
     };
   },
   methods: {
-    onSubmit(event) {
-      alert(JSON.stringify(this.form));
-    },
-    onReset() {
+    ...mapActions(['addNotaFiscal']),
+    reset() {
       this.notaFiscal = {};
 
       requestAnimationFrame(() => {
@@ -206,7 +212,28 @@ export default {
       });
     },
     async submit(e) {
-      alert(JSON.stringify(this.notaFiscal));
+      this.addNotaFiscal(this.notaFiscal);
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', this.$swal.stopTimer);
+          toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Notas Fiscal adicionada com sucesso',
+      });
+
+      this.added = true;
+      this.addedMessage = `Nota Fiscal número ${this.notaFiscal.numero} adicionada.`;
+
+      this.reset();
     },
   },
 };

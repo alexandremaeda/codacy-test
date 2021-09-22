@@ -14,7 +14,22 @@
               >
             </div>
             <div class="table-responsive">
-              <b-table hover :items="items" :fields="fields"></b-table>
+              <b-table
+                hover
+                :items="notasFiscais"
+                :fields="fields"
+                show-empty
+                empty-text="nenhum dado encontrado"
+              >
+                <template #empty="scope">
+                  <h4>{{ scope.emptyText }}</h4>
+                </template>
+                <template v-slot:cell(descricaoServico)="row">
+                  <div :title="row.item.descricaoServico">
+                    {{ longTextChecker(row.item.descricaoServico) }}
+                  </div>
+                </template>
+              </b-table>
             </div>
           </card>
         </b-col>
@@ -24,27 +39,10 @@
 </template>
 
 <script>
-const tableData = [
-  {
-    id: 1,
-    numero: 'Dakota Rice',
-    valor: 'R$36.738',
-    mes: '09',
-    dataRecebimento: '12/10/2021',
-  },
-  {
-    id: 2,
-    numero: 'Dakota Rice',
-    valor: 'R$36.738',
-    mes: '09',
-    dataRecebimento: '12/10/2021',
-  },
-];
+import { createNamespacedHelpers } from 'vuex';
+const { mapState } = createNamespacedHelpers('notasFiscais');
 
 export default {
-  components: {
-    // LTable,
-  },
   data() {
     return {
       breadCrumbItems: [
@@ -59,16 +57,18 @@ export default {
       ],
       fields: [
         {
-          key: 'id',
-          label: 'Id',
-        },
-        {
           key: 'numero',
           label: 'Número',
         },
         {
           key: 'valor',
           label: 'Valor',
+          formatter(value) {
+            return parseFloat(value || 0).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            });
+          },
         },
         {
           key: 'mes',
@@ -78,9 +78,21 @@ export default {
           key: 'dataRecebimento',
           label: 'Data de Recebimento',
         },
+        {
+          key: 'descricaoServico',
+          label: 'Descrição do Serviço Prestado',
+        },
       ],
-      items: tableData,
     };
+  },
+  computed: {
+    ...mapState(['notasFiscais']),
+  },
+  methods: {
+    longTextChecker(text) {
+      if (text.length > 100) return `${text.slice(0, 60)}...`;
+      else return text;
+    },
   },
 };
 </script>
