@@ -25,10 +25,13 @@ Para que possam testar a aplicação, hospedei em meu repositório pessoal.\
 
 Como ainda não existe uma camada de armazenamento, criei um recurso para carregar dados simuladores. Este recurso está localizado no menu superior, com o nome de *Mock*.\
 Existem duas opções:
-* Carregar Notas Fiscais - Carregas alguns dados de Notas Fiscais;
-* Limpar Notas Fiscais - Limpa os dados existes,
+* Carregar Notas Fiscais - Carrega alguns dados de Notas Fiscais;
+* Limpar Notas Fiscais - Limpa os dados existes.
 
-  
+*Nesse primeiro momento, foi criado alguns recursos de Notas Fiscais.\
+*Outros recursos estarão disponíveis **em breve**!
+
+Aguardo feedbacks!
 ## Installation
 
 Caso desejam testar em seus ambientes, sigam as instruções:
