@@ -37,6 +37,11 @@ const routes = [
         component: () => import("pages/NotasFiscais/Add.vue"),
       },
       {
+        path: "nota-fiscal/:id/",
+        name: "Atualizar Nota Fiscal",
+        component: () => import("pages/NotasFiscais/Update.vue"),
+      },
+      {
         path: "despesas",
         name: "Despesas",
         component: () => import("pages/Despesas/Home.vue"),
@@ -51,7 +56,7 @@ const routes = [
   },
   {
     path: "/login",
-    component: () => import("layouts/Login.vue"),
+    component: () => import("layouts/LoginLayout.vue"),
     children: [
       { path: "", name: "Login", component: () => import("pages/Login.vue") },
     ],
