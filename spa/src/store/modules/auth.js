@@ -19,7 +19,13 @@ const getters = {
 // actions
 const actions = {
   login: async ({ commit, dispatch }, data) => {
-    const { token } = await authApi.login(data).then((res) => res.data);
+    // auth disabled
+    // const { token } = await authApi.login(data).then((res) => res.data);
+
+    let token = "";
+
+    if (data.login === "admin@test.com" && data.password === "123")
+      token = "temptoken123";
 
     if (token) {
       localStorage.setItem("user-token", token); // store the token in localstorage
