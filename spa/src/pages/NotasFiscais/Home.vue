@@ -13,6 +13,9 @@
                 >Lançar Nota Fiscal</b-button
               >
             </div>
+            <b-alert v-model="alert" variant="success" dismissible fade>
+              {{ alertMessage }}
+            </b-alert>
             <div class="table-responsive">
               <b-table
                 hover
@@ -29,6 +32,23 @@
                     {{ longTextChecker(row.item.descricaoServico) }}
                   </div>
                 </template>
+                <template v-slot:cell(actions)="row">
+                  <b-button
+                    size="sm"
+                    variant="info"
+                    @click="update(row.item)"
+                    class="mr-1"
+                  >
+                    Editar
+                  </b-button>
+                  <b-button
+                    size="sm"
+                    variant="warning"
+                    @click="remove(row.item)"
+                  >
+                    Remover
+                  </b-button>
+                </template>
               </b-table>
             </div>
           </card>
@@ -40,7 +60,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState } = createNamespacedHelpers("notasFiscais");
+const { mapState, mapActions } = createNamespacedHelpers("notasFiscais");
 
 export default {
   data() {
@@ -55,6 +75,8 @@ export default {
           active: true,
         },
       ],
+      alert: false,
+      alertMessage: "",
       fields: [
         {
           key: "numero",
@@ -77,10 +99,26 @@ export default {
         {
           key: "dataRecebimento",
           label: "Data de Recebimento",
+          formatter(value) {
+            try {
+              return new Date(value).toLocaleDateString("pt-BR", {
+                timeZone: "UTC",
+              });
+            } catch (err) {
+              console.error(err);
+              return value;
+            }
+          },
         },
         {
           key: "descricaoServico",
           label: "Descrição do Serviço Prestado",
+        },
+        {
+          excludeFilter: true,
+          key: "actions",
+          label: "",
+          class: "action",
         },
       ],
     };
@@ -89,9 +127,34 @@ export default {
     ...mapState(["notasFiscais"]),
   },
   methods: {
+    ...mapActions(["removeNotaFiscal", "updateNotaFiscal"]),
     longTextChecker(text) {
-      if (text.length > 100) return `${text.slice(0, 60)}...`;
+      if (text && text.length > 100) return `${text.slice(0, 60)}...`;
       else return text;
+    },
+    update(nf) {
+      this.$router.push({
+        name: "Atualizar Nota Fiscal",
+        params: { id: nf.id },
+      });
+    },
+    async remove(nf) {
+      const isConfirm = await this.$swal({
+        title: "Atenção!",
+        text: `Deseja realmente Remover a Nota Fiscal número: ${nf.numero}?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não",
+      });
+
+      if (!isConfirm.value) return;
+
+      this.removeNotaFiscal(nf.id);
+
+      this.alert = true;
+      this.alertMessage = `Nota Fiscal número: ${nf.numero}, removida.`;
     },
   },
 };

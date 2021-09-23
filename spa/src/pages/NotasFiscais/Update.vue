@@ -5,9 +5,9 @@
         <b-col cols="12">
           <b-breadcrumb :items="breadCrumbItems"></b-breadcrumb>
           <card>
-            <h2 slot="header" class="card-title mb-3">Adicionar Nota Fiscal</h2>
-            <b-alert v-model="added" variant="success" dismissible fade>
-              {{ addedMessage }}
+            <h2 slot="header" class="card-title mb-3">Atualizar Nota Fiscal</h2>
+            <b-alert v-model="alert" variant="success" dismissible fade>
+              {{ alertMessage }}
             </b-alert>
             <validation-observer ref="observer" v-slot="{ invalid, validate }">
               <b-form
@@ -140,9 +140,11 @@
                   type="submit"
                   variant="primary"
                   class="mr-1"
-                  >Adicionar</b-button
+                  >Atualizar</b-button
                 >
-                <b-button type="reset" variant="secondary">Limpar</b-button>
+                <b-button variant="warning" @click.prevent="remove"
+                  >Remover</b-button
+                >
               </b-form>
             </validation-observer>
           </card>
@@ -172,7 +174,7 @@ export default {
           to: { name: "Notas Fiscais" },
         },
         {
-          text: "Adicionar Nota Fiscal",
+          text: "Atualizar Nota Fiscal",
           active: true,
         },
       ],
@@ -198,43 +200,60 @@ export default {
         { value: 11, text: "11 - Novembro" },
         { value: 12, text: "12 - Dezembro" },
       ],
-      added: false,
-      addedMessage: "",
+      alert: false,
+      alertMessage: "",
     };
   },
   methods: {
-    ...mapActions(["addNotaFiscal"]),
-    reset() {
-      this.notaFiscal = {};
+    ...mapActions(["updateNotaFiscal", "removeNotaFiscal"]),
+    async submit(e) {
+      this.updateNotaFiscal(this.notaFiscal);
 
-      requestAnimationFrame(() => {
-        this.$refs.observer.reset();
-      });
+      this.alert = true;
+      this.alertMessage = `Nota Fiscal número ${this.notaFiscal.numero} atualizada.`;
     },
-    async submit() {
-      this.addNotaFiscal(this.notaFiscal);
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 5000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", this.$swal.stopTimer);
-          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-        },
+    async remove() {
+      const isConfirm = await this.$swal({
+        title: "Atenção!",
+        text: `Deseja realmente Remover a Nota Fiscal número: ${this.notaFiscal.numero}?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não",
       });
 
-      Toast.fire({
+      if (!isConfirm.value) return;
+
+      this.removeNotaFiscal(this.notaFiscal.id);
+
+      await this.$swal({
+        title: "Atenção!",
+        text: `Nota Fiscal número: ${this.notaFiscal.numero}, removida`,
         icon: "success",
-        title: "Notas Fiscal adicionada com sucesso",
       });
 
-      this.added = true;
-      this.addedMessage = `Nota Fiscal número ${this.notaFiscal.numero} adicionada.`;
-
-      this.reset();
+      this.$router.push({
+        name: "Notas Fiscais",
+      });
     },
+  },
+  async created() {
+    const id = this.$route.params.id;
+    const foundNF = this.$store.getters["notasFiscais/getNotaFiscal"](id);
+
+    if (foundNF) this.notaFiscal = { ...foundNF };
+    else {
+      await this.$swal({
+        title: "Atenção!",
+        text: `Nota Fiscal id: ${id}, não encontrada.`,
+        icon: "warning",
+      });
+
+      this.$router.push({
+        name: "Notas Fiscais",
+      });
+    }
   },
 };
 </script>
