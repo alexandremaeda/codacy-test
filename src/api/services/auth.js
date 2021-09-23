@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const login = async (login, password) => {
-  if (login === 'test' && password === '123') {
+  if (login === "admin@test.com" && password === "123") {
     //auth ok
     const id = 1;
     const token = jwt.sign({ id }, process.env.SECRET, {
