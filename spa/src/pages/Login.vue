@@ -8,33 +8,65 @@
               <h5 class="card-title text-center mb-5 fw-light fs-5">
                 Vibbraneo NF
               </h5>
-              <form>
-                <div class="form-floating mb-3">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="floatingInput"
-                    placeholder="name@example.com"
-                    v-model="userLogin"
-                  />
-                  <label for="floatingInput">Email address</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="floatingPassword"
-                    placeholder="Password"
-                    v-model="userPassword"
-                  />
-                  <label for="floatingPassword">Password</label>
-                </div>
-                <div class="d-grid">
-                  <b-button variant="primary" size="lg" @click="submit"
+              <b-alert dismissible show variant="info">
+                <p class="font-italic m-0">Para acessar, utilizar:</p>
+                <p class="font-italic m-0">E-mail: admin@test.com</p>
+                <p class="font-italic m-0">Senha: 123</p>
+              </b-alert>
+              <validation-observer ref="observer" v-slot="{ invalid }">
+                <b-form @submit.prevent="submit">
+                  <validation-provider
+                    name="E-mail"
+                    rules="required|email"
+                    v-slot="{ valid, errors }"
+                  >
+                    <b-form-group
+                      id="input-group-1"
+                      label="E-mail"
+                      label-for="mail"
+                    >
+                      <b-form-input
+                        id="mail"
+                        placeholder="E-mail"
+                        v-model="userLogin"
+                        :state="errors[0] ? false : valid ? true : null"
+                      ></b-form-input>
+                      <b-form-invalid-feedback :state="valid">
+                        {{ errors[0] }}
+                      </b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                  <validation-provider
+                    name="Senha"
+                    rules="required"
+                    v-slot="{ valid, errors }"
+                  >
+                    <b-form-group
+                      id="input-group-2"
+                      label="Senha"
+                      label-for="password"
+                    >
+                      <b-form-input
+                        type="password"
+                        id="passowrd"
+                        placeholder="Senha"
+                        v-model="userPassword"
+                        :state="errors[0] ? false : valid ? true : null"
+                      ></b-form-input>
+                      <b-form-invalid-feedback :state="valid">
+                        {{ errors[0] }}
+                      </b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                  <b-button
+                    variant="primary"
+                    size="lg"
+                    @click="submit"
+                    :disabled="invalid"
                     >Entrar</b-button
                   >
-                </div>
-              </form>
+                </b-form>
+              </validation-observer>
             </div>
           </div>
         </div>
@@ -50,7 +82,7 @@ const { mapState, mapActions } = createNamespacedHelpers("auth");
 export default {
   data() {
     return {
-      userLogin: undefined,
+      userLogin: null,
       userPassword: undefined,
     };
   },
@@ -61,32 +93,37 @@ export default {
     ...mapActions(["login"]),
     async submit() {
       try {
-        await this.login({
-          login: this.userLogin,
-          password: this.userPassword,
-        });
-
-        if (this.token) {
-          const Toast = this.$swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener("mouseenter", this.$swal.stopTimer);
-              toast.addEventListener("mouseleave", this.$swal.resumeTimer);
-            },
+        const isValid = await this.$refs.observer.validate();
+        if (isValid) {
+          await this.login({
+            login: this.userLogin,
+            password: this.userPassword,
           });
-
-          Toast.fire({
-            icon: "success",
-            title: "Você conectou",
-          });
-
-          if (this.$route.query && this.$route.query.redirect)
-            this.$router.push(this.$route.query.redirect);
-          else this.$router.push("/");
+          if (this.token) {
+            const Toast = this.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener("mouseenter", this.$swal.stopTimer);
+                toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+              },
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Você conectou",
+            });
+            if (this.$route.query && this.$route.query.redirect)
+              this.$router.push(this.$route.query.redirect);
+            else this.$router.push("/");
+          } else {
+            requestAnimationFrame(() => {
+              this.$refs.observer.reset();
+            });
+            throw new Error("E-mail ou senha incorretos.");
+          }
         }
       } catch (err) {
         this.$swal.fire({
